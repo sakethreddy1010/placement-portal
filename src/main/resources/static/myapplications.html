@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<title>My Applications</title>
+</head>
+
+<body style="font-family:Arial;background:#f4f6f9">
+
+<h1 style="text-align:center;margin-top:30px">My Job Applications</h1>
+
+<div style="text-align:center;margin-top:20px">
+
+<input id="email" placeholder="Enter your email"
+style="padding:10px;width:250px;border-radius:5px;border:1px solid #ccc">
+
+<button onclick="loadApps()"
+style="padding:10px 20px;background:#3498db;color:white;border:none;border-radius:5px;cursor:pointer">
+View Applications </button>
+
+</div>
+
+<div id="applicationsContainer"
+style="
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+padding:30px;
+">
+</div>
+
+<script>
+
+function loadApps(){
+
+let email = document.getElementById("email").value
+
+fetch("http://localhost:8080/applications?email="+email)
+.then(res => res.json())
+.then(data => {
+
+document.getElementById("applicationsContainer").innerHTML=""
+
+data.forEach(app => {
+
+let card = `
+<div style="
+background:white;
+padding:20px;
+width:280px;
+border-radius:10px;
+box-shadow:0px 2px 10px rgba(0,0,0,0.1);
+text-align:center;
+">
+
+<h3>${app.company}</h3>
+<p><b>Role:</b> ${app.role}</p>
+
+</div>
+`
+
+document.getElementById("applicationsContainer").innerHTML += card
+
+})
+
+})
+
+}
+
+</script>
+
+</body>
+</html>
+	

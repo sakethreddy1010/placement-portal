@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Panel</title>
+</head>
+
+<body>
+
+<h2>Add Job</h2>
+
+<input id="company" placeholder="Company"><br><br>
+<input id="role" placeholder="Role"><br><br>
+<input id="location" placeholder="Location"><br><br>
+
+<button onclick="addJob()">Add Job</button>
+
+<script>
+
+function addJob(){
+
+fetch("http://localhost:8080/addjob",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+company:document.getElementById("company").value,
+role:document.getElementById("role").value,
+location:document.getElementById("location").value
+})
+
+})
+.then(res=>res.json())
+.then(data=>alert("Job Added Successfully"))
+
+}
+
+</script>
+
+</body>
+</html>

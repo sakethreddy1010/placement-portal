@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Applications</title>
+</head>
+
+<body>
+
+<h2>Student Applications</h2>
+
+<table border="1">
+<thead>
+<tr>
+<th>Student Email</th>
+<th>Company</th>
+<th>Role</th>
+</tr>
+</thead>
+
+<tbody id="tableBody"></tbody>
+
+</table>
+
+<script>
+
+fetch("http://localhost:8080/applications")
+.then(res=>res.json())
+.then(data=>{
+
+let rows="";
+
+data.forEach(app=>{
+rows+=`
+<tr>
+<td>${app.studentEmail}</td>
+<td>${app.company}</td>
+<td>${app.role}</td>
+</tr>
+`
+})
+
+document.getElementById("tableBody").innerHTML=rows;
+
+})
+
+</script>
+
+</body>
+</html>

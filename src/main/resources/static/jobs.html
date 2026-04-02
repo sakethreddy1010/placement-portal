@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Available Jobs</title>
+</head>
+
+<body>
+
+	<h1 style="text-align:center;margin-top:30px">Available Jobs</h1>
+
+	<div id="jobsContainer" style="
+	    display:flex;
+	    flex-wrap:wrap;
+	    justify-content:center;
+	    gap:20px;
+	    padding:30px;
+	"></div>
+
+	<script>
+
+	fetch("http://localhost:8080/jobs")
+	.then(res => res.json())
+	.then(data => {
+
+	    let container = document.getElementById("jobsContainer");
+
+	    data.forEach(job => {
+
+	        let card = `
+	        <div style="
+	            background:white;
+	            padding:20px;
+	            width:250px;
+	            border-radius:10px;
+	            box-shadow:0px 2px 10px rgba(0,0,0,0.1);
+	            text-align:center;
+	        ">
+
+	            <h3 style="color:#2c3e50">${job.company}</h3>
+	            <p><b>Role:</b> ${job.role}</p>
+	            <p><b>Location:</b> ${job.location}</p>
+
+	            <button onclick="applyJob(${job.id})"
+	            style="
+	                background:#2ecc71;
+	                border:none;
+	                padding:10px 20px;
+	                color:white;
+	                border-radius:5px;
+	                cursor:pointer;
+	            ">
+	                Apply
+	            </button>
+
+	        </div>
+	        `;
+
+	        container.innerHTML += card;
+
+	    });
+
+	});
+
+	function applyJob(jobId){
+
+	    let studentId = prompt("Enter your Student ID");
+
+		fetch("http://localhost:8080/apply?studentId=" + studentId + "&jobId=" + jobId, {
+	        method: "POST"
+	    })
+	    .then(res => res.text())
+	    .then(msg => alert(msg));
+
+	}
+	</script>
+</body>
+</html>

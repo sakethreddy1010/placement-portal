@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<title>Admin Dashboard</title>
+</head>
+
+<body style="font-family:Arial;background:#f4f6f9">
+
+<nav style="background:#333;padding:12px">
+
+<a href="jobs.html" style="color:white;margin-right:20px;text-decoration:none">Jobs</a>
+
+<a href="myapplications.html" style="color:white;margin-right:20px;text-decoration:none">My Applications</a>
+
+<a href="dashboard.html" style="color:white;margin-right:20px;text-decoration:none">Admin Dashboard</a>
+
+</nav>
+
+<h1 style="text-align:center;margin-top:30px">Admin Dashboard</h1>
+
+<div style="
+display:flex;
+justify-content:center;
+gap:30px;
+margin-top:40px;
+flex-wrap:wrap;
+">
+
+<div style="
+background:white;
+padding:30px;
+width:220px;
+border-radius:10px;
+box-shadow:0px 4px 15px rgba(0,0,0,0.1);
+text-align:center;
+">
+
+<h2 id="students">0</h2>
+<p>Total Students</p>
+
+</div>
+
+<div style="
+background:white;
+padding:30px;
+width:220px;
+border-radius:10px;
+box-shadow:0px 4px 15px rgba(0,0,0,0.1);
+text-align:center;
+">
+
+<h2 id="jobs">0</h2>
+<p>Total Jobs</p>
+
+</div>
+
+<div style="
+background:white;
+padding:30px;
+width:220px;
+border-radius:10px;
+box-shadow:0px 4px 15px rgba(0,0,0,0.1);
+text-align:center;
+">
+
+<h2 id="applications">0</h2>
+<p>Total Applications</p>
+
+</div>
+
+</div>
+
+<script>
+
+// Students
+fetch("/countStudents")
+.then(res => res.text())
+.then(data => {
+    document.getElementById("students").innerText = data;
+});
+
+// Jobs
+fetch("/countJobs")
+.then(res => res.text())
+.then(data => {
+    document.getElementById("jobs").innerText = data;
+});
+
+// Applications
+fetch("/countApplications")
+.then(res => res.text())
+.then(data => {
+    document.getElementById("applications").innerText = data;
+});
+
+</script>
+
+</body>
+</html>
